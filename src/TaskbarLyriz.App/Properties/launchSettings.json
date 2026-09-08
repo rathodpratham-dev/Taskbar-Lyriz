@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "TaskbarLyriz.App (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "TaskbarLyriz.App (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

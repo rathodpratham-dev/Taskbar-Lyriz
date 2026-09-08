@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="TaskbarLyriz.App.Pages.CachePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Loaded="Page_Loaded">
+    <ScrollViewer>
+        <StackPanel
+            MaxWidth="900"
+            Padding="32,24,32,40"
+            HorizontalAlignment="Stretch"
+            Spacing="24">
+            <Grid ColumnSpacing="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Spacing="6">
+                    <TextBlock Style="{StaticResource PageTitleStyle}" Text="Lyrics cache" />
+                    <TextBlock Style="{StaticResource PageSubtitleStyle}" Text="Downloaded lyrics are stored locally for fast, offline reuse." />
+                </StackPanel>
+                <ProgressRing Grid.Column="1" Width="22" Height="22" IsActive="{x:Bind ViewModel.IsBusy, Mode=OneWay}" />
+            </Grid>
+
+            <InfoBar IsClosable="False" IsOpen="True" Message="{x:Bind ViewModel.Status, Mode=OneWay}" />
+
+            <Grid ColumnSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border Style="{StaticResource CardStyle}">
+                    <StackPanel Spacing="8">
+                        <FontIcon Glyph="&#xE7C3;" HorizontalAlignment="Left" />
+                        <TextBlock Style="{StaticResource PageSubtitleStyle}" Text="Saved lyrics" />
+                        <TextBlock FontSize="24" FontWeight="SemiBold" Text="{x:Bind ViewModel.EntryCount, Mode=OneWay}" />
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="1" Style="{StaticResource CardStyle}">
+                    <StackPanel Spacing="8">
+                        <FontIcon Glyph="&#xEDA2;" HorizontalAlignment="Left" />
+                        <TextBlock Style="{StaticResource PageSubtitleStyle}" Text="On-disk size" />
+                        <TextBlock FontSize="24" FontWeight="SemiBold" Text="{x:Bind ViewModel.Size, Mode=OneWay}" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel Spacing="10">
+                    <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Storage location" />
+                    <TextBlock Text="{x:Bind ViewModel.DatabasePath, Mode=OneWay}" TextWrapping="Wrap" />
+                    <TextBlock Style="{StaticResource PageSubtitleStyle}" Text="Older JSON cache files are imported once and left untouched." />
+                </StackPanel>
+            </Border>
+
+            <StackPanel Orientation="Horizontal" Spacing="12">
+                <Button Click="Refresh_Click" Content="Refresh statistics" />
+                <Button Click="Clear_Click" Content="Clear downloaded lyrics" />
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="TaskbarLyriz.App.Pages.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Loaded="Page_Loaded">
+    <ScrollViewer>
+        <StackPanel
+            MaxWidth="900"
+            Padding="32,24,32,40"
+            HorizontalAlignment="Stretch"
+            Spacing="24">
+            <StackPanel Spacing="6">
+                <TextBlock Style="{StaticResource PageTitleStyle}" Text="Settings" />
+                <TextBlock
+                    Style="{StaticResource PageSubtitleStyle}"
+                    Text="Configure how TaskbarLyriz starts, stays available, and looks." />
+            </StackPanel>
+
+            <InfoBar
+                IsClosable="False"
+                IsOpen="True"
+                Message="{x:Bind ViewModel.StatusMessage, Mode=OneWay}" />
+
+            <StackPanel Spacing="12">
+                <TextBlock Style="{StaticResource SectionTitleStyle}" Text="System" />
+                <Border Style="{StaticResource CardStyle}">
+                    <StackPanel Spacing="20">
+                        <Grid ColumnSpacing="24">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Spacing="3">
+                                <TextBlock FontWeight="SemiBold" Text="Start with Windows" />
+                                <TextBlock
+                                    Style="{StaticResource PageSubtitleStyle}"
+                                    Text="Launch after you sign in, without administrator privileges." />
+                            </StackPanel>
+                            <ToggleSwitch
+                                x:Name="StartWithWindowsToggle"
+                                Grid.Column="1"
+                                IsEnabled="{x:Bind ViewModel.CanChangeStartup, Mode=OneWay}"
+                                IsOn="{x:Bind ViewModel.StartWithWindows, Mode=OneWay}"
+                                Toggled="StartWithWindows_Toggled" />
+                        </Grid>
+                        <Rectangle Height="1" Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />
+                        <Grid ColumnSpacing="24">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Spacing="3">
+                                <TextBlock FontWeight="SemiBold" Text="Start minimized" />
+                                <TextBlock
+                                    Style="{StaticResource PageSubtitleStyle}"
+                                    Text="Keep the main window hidden when TaskbarLyriz starts." />
+                            </StackPanel>
+                            <ToggleSwitch
+                                Grid.Column="1"
+                                IsOn="{x:Bind ViewModel.StartMinimized, Mode=OneWay}"
+                                Toggled="StartMinimized_Toggled" />
+                        </Grid>
+                        <Rectangle Height="1" Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />
+                        <Grid ColumnSpacing="24">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Spacing="3">
+                                <TextBlock FontWeight="SemiBold" Text="Minimize to notification area" />
+                                <TextBlock
+                                    Style="{StaticResource PageSubtitleStyle}"
+                                    Text="Closing the main window keeps TaskbarLyriz running quietly." />
+                            </StackPanel>
+                            <ToggleSwitch
+                                Grid.Column="1"
+                                IsOn="{x:Bind ViewModel.MinimizeToTray, Mode=OneWay}"
+                                Toggled="MinimizeToTray_Toggled" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <StackPanel Spacing="12">
+                <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Taskbar lyrics" />
+                <Border Style="{StaticResource CardStyle}">
+                    <Grid ColumnSpacing="24">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Spacing="3">
+                            <TextBlock FontWeight="SemiBold" Text="Enable taskbar lyrics" />
+                            <TextBlock
+                                Style="{StaticResource PageSubtitleStyle}"
+                                Text="Show the current synchronized line inside a safe unused taskbar gap." />
+                        </StackPanel>
+                        <ToggleSwitch
+                            Grid.Column="1"
+                            IsOn="{x:Bind ViewModel.TaskbarLyricsEnabled, Mode=OneWay}"
+                            Toggled="TaskbarLyrics_Toggled" />
+                    </Grid>
+                </Border>
+            </StackPanel>
+
+            <StackPanel Spacing="12">
+                <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Appearance" />
+                <Border Style="{StaticResource CardStyle}">
+                    <Grid ColumnSpacing="24">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="220" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Spacing="3">
+                            <TextBlock FontWeight="SemiBold" Text="App theme" />
+                            <TextBlock
+                                Style="{StaticResource PageSubtitleStyle}"
+                                Text="Follow Windows or choose a fixed light or dark theme." />
+                        </StackPanel>
+                        <ComboBox
+                            x:Name="ThemePicker"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            SelectedIndex="{x:Bind ViewModel.ThemeIndex, Mode=OneWay}"
+                            SelectionChanged="ThemePicker_SelectionChanged">
+                            <ComboBoxItem Content="Use system setting" />
+                            <ComboBoxItem Content="Light" />
+                            <ComboBoxItem Content="Dark" />
+                        </ComboBox>
+                    </Grid>
+                </Border>
+            </StackPanel>
+
+            <StackPanel Spacing="12">
+                <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Lyrics synchronization" />
+                <Border Style="{StaticResource CardStyle}">
+                    <StackPanel Spacing="20">
+                        <Grid ColumnSpacing="24">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="220" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Spacing="3">
+                                <TextBlock FontWeight="SemiBold" Text="Timing offset" />
+                                <TextBlock
+                                    Style="{StaticResource PageSubtitleStyle}"
+                                    Text="Positive values delay lyric changes; negative values advance them." />
+                            </StackPanel>
+                            <NumberBox
+                                x:Name="LyricsOffsetBox"
+                                Grid.Column="1"
+                                Header="Milliseconds"
+                                Maximum="10000"
+                                Minimum="-10000"
+                                SmallChange="100"
+                                SpinButtonPlacementMode="Compact"
+                                Value="{x:Bind ViewModel.LyricsTimingOffsetMilliseconds, Mode=OneWay}"
+                                ValueChanged="LyricsOffset_ValueChanged" />
+                        </Grid>
+                        <Rectangle Height="1" Fill="{ThemeResource DividerStrokeColorDefaultBrush}" />
+                        <Grid ColumnSpacing="24">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Spacing="3">
+                                <TextBlock FontWeight="SemiBold" Text="Follow current line" />
+                                <TextBlock
+                                    Style="{StaticResource PageSubtitleStyle}"
+                                    Text="Keep the active synchronized lyric visible while playback advances or seeks." />
+                            </StackPanel>
+                            <ToggleSwitch
+                                Grid.Column="1"
+                                IsOn="{x:Bind ViewModel.FollowCurrentLine, Mode=OneWay}"
+                                Toggled="FollowCurrentLine_Toggled" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <StackPanel Spacing="6">
+                <TextBlock FontWeight="SemiBold" Text="Application data" />
+                <TextBlock
+                    Style="{StaticResource PageSubtitleStyle}"
+                    Text="{x:Bind ViewModel.DataLocation}" />
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

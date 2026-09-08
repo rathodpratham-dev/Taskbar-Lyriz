@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="TaskbarLyriz.App.Pages.ProvidersPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer>
+        <StackPanel
+            MaxWidth="900"
+            Padding="32,24,32,40"
+            HorizontalAlignment="Stretch"
+            Spacing="24">
+            <StackPanel Spacing="6">
+                <TextBlock Style="{StaticResource PageTitleStyle}" Text="Lyrics providers" />
+                <TextBlock
+                    Style="{StaticResource PageSubtitleStyle}"
+                    Text="TaskbarLyriz checks providers in order and stores successful results locally." />
+            </StackPanel>
+
+            <InfoBar
+                IsClosable="False"
+                IsOpen="True"
+                Message="Only the current title, artist, album, and duration are sent during a lookup. Requests time out after 15 seconds."
+                Severity="Informational"
+                Title="Privacy and network use" />
+
+            <Border Style="{StaticResource CardStyle}">
+                <Grid ColumnSpacing="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <FontIcon FontSize="26" Glyph="&#xE8D2;" />
+                    <StackPanel Grid.Column="1" Spacing="5">
+                        <TextBlock FontSize="20" FontWeight="SemiBold" Text="LRCLIB" />
+                        <TextBlock Style="{StaticResource PageSubtitleStyle}" Text="Primary provider for synchronized LRC and plain lyrics." />
+                    </StackPanel>
+                    <TextBlock Grid.Column="2" VerticalAlignment="Center" FontWeight="SemiBold" Text="Priority 1" />
+                </Grid>
+            </Border>
+
+            <Border Style="{StaticResource CardStyle}">
+                <Grid ColumnSpacing="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <FontIcon FontSize="26" Glyph="&#xE8A5;" />
+                    <StackPanel Grid.Column="1" Spacing="5">
+                        <TextBlock FontSize="20" FontWeight="SemiBold" Text="Genius" />
+                        <TextBlock Style="{StaticResource PageSubtitleStyle}" Text="Plain-lyrics fallback when LRCLIB has no suitable match." />
+                    </StackPanel>
+                    <TextBlock Grid.Column="2" VerticalAlignment="Center" FontWeight="SemiBold" Text="Priority 2" />
+                </Grid>
+            </Border>
+
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel Spacing="8">
+                    <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Lookup order" />
+                    <TextBlock TextWrapping="Wrap" Text="Local SQLite cache  →  LRCLIB exact/search  →  Genius fallback" />
+                    <TextBlock Style="{StaticResource PageSubtitleStyle}" Text="Recent misses are remembered for 15 minutes to avoid repeated downloads. Refresh bypasses that delay." />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="TaskbarLyriz.App.Pages.FeaturePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer>
+        <StackPanel
+            MaxWidth="820"
+            Padding="32,24,32,40"
+            HorizontalAlignment="Stretch"
+            Spacing="24">
+            <StackPanel Spacing="12">
+                <FontIcon
+                    x:Name="FeatureIcon"
+                    FontSize="36"
+                    Glyph="&#xE946;"
+                    HorizontalAlignment="Left" />
+                <TextBlock x:Name="TitleText" Style="{StaticResource PageTitleStyle}" />
+                <TextBlock
+                    x:Name="DescriptionText"
+                    Style="{StaticResource PageSubtitleStyle}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+
+            <InfoBar
+                x:Name="MilestoneInfo"
+                IsClosable="False"
+                IsOpen="True"
+                Severity="Informational"
+                Title="Foundation ready" />
+
+            <Border Style="{StaticResource CardStyle}">
+                <StackPanel Spacing="10">
+                    <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Planned scope" />
+                    <TextBlock
+                        x:Name="ScopeText"
+                        TextWrapping="WrapWholeWords" />
+                    <TextBlock
+                        Margin="0,8,0,0"
+                        Style="{StaticResource PageSubtitleStyle}"
+                        Text="This screen is intentionally read-only in the native shell milestone." />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
